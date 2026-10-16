@@ -12,6 +12,7 @@ interface IBook extends IMedia {
 interface IMusic extends IMedia {
   author?: string;
   songs?: ISong[];
+  genre?: string
 }
 interface ISong {
   songTitle: string;
@@ -67,7 +68,7 @@ function Book({ title, yearRelease, cover, pages }: IBook) {
   );
 }
 
-function Music({ title, yearRelease, cover, author, songs }: IMusic) {
+function Music({ title, yearRelease, cover, author, songs, genre }: IMusic) {
   return (
     <div
       style={{
@@ -93,6 +94,7 @@ function Music({ title, yearRelease, cover, author, songs }: IMusic) {
       <h3>{title}</h3>
       <p>Year: {yearRelease}</p>
       {author && <p>Artist: {author}</p>}
+      <p>Genre: {genre}</p>
 
 
       {songs?.map((song) => (
@@ -169,8 +171,9 @@ function App() {
           title="Hurry Up Tomorrow"
           yearRelease={2024}
           author="The Weeknd"
+          genre="R&B"
           cover="https://krytyczniemuzycznie.com/wp-content/uploads/2025/01/the-weeknd-hurry-up-tomorrow-2025.png"
-          songs={[{ songTitle: "Timeless", duration: "4:17" }]}
+          songs={[{ songTitle: "Timeless", duration: "4:17" }, {songTitle: "Drive", duration: "3:08"}]}
         />
       </section>
     </main>
