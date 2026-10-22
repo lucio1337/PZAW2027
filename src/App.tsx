@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 
 
 
@@ -68,27 +68,178 @@ const books: IBook[] = [
 
 const albums: IMusic[] = [
   {
-    title: "Hurry Up Tomorrow",
-    yearRelease: 2024,
-    author: "The Weeknd",
-    genre: "R&B",
-    cover: "https://krytyczniemuzycznie.com/wp-content/uploads/2025/01/the-weeknd-hurry-up-tomorrow-2025.png",
-    songs: [{ songTitle: "Timeless", duration: "4:17" }, { songTitle: "Drive", duration: "3:08" }]
+    title: "Thriller",
+    yearRelease: 1982,
+    author: "Michael Jackson",
+    genre: "POP",
+    cover: "https://muzikercdn.com/uploads/products/3732/373292/main_af02fa57.jpg",
+    songs: [
+      {
+        songTitle: "Wanna Be Startin' Somethin'",
+        duration: "6:03",
+      },
+      {
+        songTitle: "Baby Be Mine",
+        duration: "4:20",
+      },
+      {
+        songTitle: "The Girl Is Mine (with Paul McCartney)",
+        duration: "3:42",
+      },
+      {
+        songTitle: "Thriller",
+        duration: "5:58",
+      },
+      {
+        songTitle: "Beat It",
+        duration: "4:18",
+      },
+      {
+        songTitle: "Billie Jean",
+        duration: "4:53",
+      },
+      {
+        songTitle: "Human Nature",
+        duration: "4:05",
+      },
+      {
+        songTitle: "P.Y.T. (Pretty Young Thing)",
+        duration: "3:58",
+      },
+      {
+        songTitle: "The Lady in My Life",
+        duration: "4:58",
+      },
+    ]
   },
   {
-    title: "Hurry Up Tomorrow",
-    yearRelease: 2024,
+    title: "Dawn FM",
+    yearRelease: 2022,
     author: "The Weeknd",
     genre: "R&B",
-    cover: "https://krytyczniemuzycznie.com/wp-content/uploads/2025/01/the-weeknd-hurry-up-tomorrow-2025.png",
-    songs: [{ songTitle: "Timeless", duration: "4:17" }, { songTitle: "Drive", duration: "3:08" }, { songTitle: "Drive", duration: "3:08" }, { songTitle: "Drive", duration: "3:08" }]
+    cover: "https://media.pitchfork.com/photos/61d5fa911b710fb5ce48ed9f/master/pass/The-Weeknd-Dawn-FM.jpg",
+    songs: [
+      {
+        songTitle: "Dawn FM",
+        duration: "1:36",
+      },
+      {
+        songTitle: "Gasoline",
+        duration: "3:32",
+      },
+      {
+        songTitle: "How Do I Make You Love Me?",
+        duration: "3:34",
+      },
+      {
+        songTitle: "Take My Breath",
+        duration: "5:39",
+      },
+      {
+        songTitle: "Sacrifice",
+        duration: "3:08",
+      },
+      {
+        songTitle: "A Tale By Quincy",
+        duration: "1:36",
+      },
+      {
+        songTitle: "Out of Time",
+        duration: "3:34",
+      },
+      {
+        songTitle: "Here We Go... Again (feat. Tyler, the Creator)",
+        duration: "3:29",
+      },
+      {
+        songTitle: "Best Friends",
+        duration: "2:43",
+      },
+      {
+        songTitle: "Is There Someone Else?",
+        duration: "3:19",
+      },
+      {
+        songTitle: "Starry Eyes",
+        duration: "2:28",
+      },
+      {
+        songTitle: "Every Angel Is Terrifying",
+        duration: "2:47",
+      },
+      {
+        songTitle: "Don't Break My Heart",
+        duration: "3:25",
+      },
+      {
+        songTitle: "I Heard You're Married (feat. Lil Wayne)",
+        duration: "4:23",
+      },
+      {
+        songTitle: "Less Than Zero",
+        duration: "3:31",
+      },
+      {
+        songTitle: "Phantom Regret by Jim",
+        duration: "2:59",
+      },
+    ]
   },
   {
-    title: "Hurry Up Tomorrow",
-    yearRelease: 2024,
-    author: "The Weeknd",
-    genre: "R&B",
-    cover: "https://krytyczniemuzycznie.com/wp-content/uploads/2025/01/the-weeknd-hurry-up-tomorrow-2025.png",
+    title: "Małomiasteczkowy",
+    yearRelease: 2018,
+    author: "Dawid Podsiadło",
+    genre: "POP",
+    cover: "https://i.scdn.co/image/ab67616d0000b273c4aa14d6f01b64808cf9ae31",
+    songs: [
+      {
+        songTitle: "Cantate Tutti",
+        duration: "3:06",
+      },
+      {
+        songTitle: "Dżins",
+        duration: "5:11",
+      },
+      {
+        songTitle: "Matomiasteczkowy",
+        duration: "3:23",
+      },
+      {
+        songTitle: "Najnowszy Klip",
+        duration: "3:49",
+      },
+      {
+        songTitle: "Trofea",
+        duration: "3:44",
+      },
+      {
+        songTitle: "Nie Ma Fal",
+        duration: "3:58",
+      },
+      {
+        songTitle: "LIS",
+        duration: "4:30",
+      },
+      {
+        songTitle: "Co Mówimy?",
+        duration: "3:37",
+      },
+      {
+        songTitle: "Nie Kłami",
+        duration: "3:15",
+      },
+      {
+        songTitle: "Matylda",
+        duration: "5:13",
+      },
+    ]
+  },
+  {
+    title: "Małomiasteczkowy",
+    yearRelease: 2018,
+    author: "Dawid Podsiadło",
+    genre: "POP",
+    cover: "https://i.scdn.co/image/ab67616d0000b273c4aa14d6f01b64808cf9ae31",
     songs: []
   }
 ]
@@ -107,36 +258,29 @@ for (let album of albums) {
 }
 
 
-function rollMenu() {
-
-}
-
 function Movie({ title, yearRelease, cover, rating }: IMovie) {
   var recommended = false;
   if (rating >= 8) {
     recommended = true;
   }
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        padding: "18px",
-        border: "1px solid white",
-        borderRadius: "12px",
-        background: "white",
-      }}
-    >
+    <div className="card">
       <img
+        className="card-img-top"
         src={cover}
         alt={title}
-        style={{ width: "250px", height: "350px", objectFit: "cover" }}
+        style={{
+          width: "250px",
+          height: "350px",
+          objectFit: "cover",
+        }}
       />
-      <h3>{title}</h3>
-      <p>Year: {yearRelease}</p>
-      <p>Rating: {rating}</p>
-      {recommended ? <label>Polecany</label> : null}
+      <div className="card-body">
+        <h4 className="card-title">{title}</h4>
+        <p className="card-text">Year: {yearRelease}</p>
+        <p className="card-text">Rating: {rating}</p>
+        {recommended ? <label>Polecany</label> : null}
+      </div>
     </div>
   );
 }
@@ -147,65 +291,73 @@ function Book({ title, yearRelease, cover, pages }: IBook) {
     classic = true;
   }
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        padding: "18px",
-        border: "1px solid white",
-        borderRadius: "12px",
-        background: "white",
-      }}
-    >
+    <div className="card">
       <img
+        className="card-img-top"
         src={cover}
         alt={title}
-        style={{ width: "250px", height: "350px", objectFit: "cover" }}
+        style={{
+          width: "250px",
+          height: "350px",
+          objectFit: "cover",
+        }}
       />
-      <h3>{title}</h3>
-      <p>Year: {yearRelease}</p>
-      <p>Pages: {pages}</p>
-      {classic ? <label>Klasyka</label> : null}
+      <div className="card-body">
+        <h4 className="card-title">{title}</h4>
+        <p className="card-text">Year: {yearRelease}</p>
+        <p className="card-text">Pages: {pages}</p>
+        {classic ? <label>Klasyka</label> : null}
+      </div>
     </div>
   );
 }
 
 function Music({ title, yearRelease, cover, author, songs, genre }: IMusic) {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        padding: "18px",
-        border: "1px solid white",
-        borderRadius: "12px",
-        background: "white",
-      }}
-    >
+    <div className="card">
       <img
+        className="card-img-top"
         src={cover}
         alt={title}
         style={{
-          width: "280px",
-          height: "280px",
+          width: "100%",
+          height: "300px",
           objectFit: "cover",
-          borderRadius: "8px",
         }}
       />
-      <h3>{title}</h3>
-      <p>Year: {yearRelease}</p>
-      {author && <p>Artist: {author}</p>}
-      <p>Genre: {genre}</p>
-
-      {songs?.length == 0 ? <label style={{ backgroundColor: "red" }}>Brak utworów</label> : null}
-      {songs?.map((song, index) => (
-        <div key={`${song.songTitle}-${index}`}>
-          <p>{index + 1}. {song.songTitle}</p>
-          <p>{song.duration}</p>
-        </div>
-      ))}
+      <div className="card-body">
+        <h4 className="card-title">{title}</h4>
+        <p className="card-text">Year: {yearRelease}</p>
+        <p className="card-text">Artist: {author}</p>
+        <p className="card-text">Genre: {genre}</p>
+        {songs?.length == 0 ?
+          <div className="alert alert-warning" role="alert">
+            Brak utworów
+          </div>
+          : null}
+        {songs?.length != 0 ?
+          <div className="table-responsive">
+            <table className="table table-dark table-striped table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Title</th>
+                  <th scope="col" className="text-end">Duration</th>
+                </tr>
+              </thead>
+              <tbody>
+                {songs?.map((song, index) => (
+                  <tr>
+                    <td>{index + 1}</td>
+                    <td>{song.songTitle}</td>
+                    <td className="text-end">{song.duration}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          : null}
+      </div>
     </div>
   );
 }
@@ -222,12 +374,14 @@ function App() {
     mostSongs: true,
   });
 
-  const sectionStyle = {
+  const sectionStyle: CSSProperties = {
     display: "flex",
     justifyContent: "center",
     gap: "20px",
+    flexWrap: "wrap",
     overflow: "hidden",
-    transition: "max-height 0.5s ease-in-out"
+    transition: "max-height 0.5s ease-in-out",
+    width: "100%",
   };
 
   function rollMenu(section: keyof typeof openSections) {
@@ -238,7 +392,7 @@ function App() {
   }
 
   return (
-    <main
+    <div className="container"
       style={{
         display: "flex",
         flexDirection: "column",
@@ -250,33 +404,33 @@ function App() {
       }}
     >
 
-      <h2 onClick={() => rollMenu("movies")}>{openSections.movies ? "⏷Movies" : "⏵Movies"}</h2>
+      <h3 onClick={() => rollMenu("movies")}>{openSections.movies ? "⏷Movies" : "⏵Movies"}</h3>
       <section
         style={{
           ...sectionStyle,
-          maxHeight: openSections.movies ? "550px" : "0px",
+          maxHeight: openSections.movies ? "3000px" : "0px",
         }}
       >
         {movies.map(m => <Movie {...m} />)}
       </section>
 
 
-      <h2 onClick={() => rollMenu("moviesAfter2010")}>{openSections.moviesAfter2010 ? "⏷Movies after 2010" : "⏵Movies after 2010"}</h2>
+      <h3 onClick={() => rollMenu("moviesAfter2010")}>{openSections.moviesAfter2010 ? "⏷Movies after 2010" : "⏵Movies after 2010"}</h3>
       <section
         style={{
           ...sectionStyle,
-          maxHeight: openSections.moviesAfter2010 ? "550px" : "0px",
+          maxHeight: openSections.moviesAfter2010 ? "3000px" : "0px",
         }}
       >
         {moviesAfter2010.map((m) => <Movie {...m}></Movie>)}
       </section>
 
 
-      <h2 onClick={() => rollMenu("books")}>{openSections.books ? "⏷Books" : "⏵Books"}</h2>
+      <h3 onClick={() => rollMenu("books")}>{openSections.books ? "⏷Books" : "⏵Books"}</h3>
       <section
         style={{
           ...sectionStyle,
-          maxHeight: openSections.books ? "550px" : "0px",
+          maxHeight: openSections.books ? "3000px" : "0px",
         }}
       >
         {books.map(b => (
@@ -284,22 +438,22 @@ function App() {
         ))}
       </section>
 
-      <h2 onClick={() => rollMenu("booksDateSorted")}>{openSections.booksDateSorted ? "⏷Books sorted by date" : "⏵Books sorted by date"}</h2>
+      <h3 onClick={() => rollMenu("booksDateSorted")}>{openSections.booksDateSorted ? "⏷Books sorted by date" : "⏵Books sorted by date"}</h3>
       <section
         style={{
           ...sectionStyle,
-          maxHeight: openSections.booksDateSorted ? "550px" : "0px",
+          maxHeight: openSections.booksDateSorted ? "3000px" : "0px",
         }}
       >
         {booksDateSorted.map((b) => <Book {...b}></Book>)}
       </section>
 
 
-      <h2 onClick={() => rollMenu("music")}>{openSections.music ? "⏷Albums" : "⏵Albums"}</h2>
+      <h3 onClick={() => rollMenu("music")}>{openSections.music ? "⏷Albums" : "⏵Albums"}</h3>
       <section
         style={{
           ...sectionStyle,
-          maxHeight: openSections.music ? "550px" : "0px",
+          maxHeight: openSections.music ? "4000px" : "0px",
         }}
       >
         {albums.map((a) => <Music {...a}></Music>)}
@@ -307,11 +461,11 @@ function App() {
 
 
 
-      <h2 onClick={() => rollMenu("mostSongs")}>{openSections.mostSongs ? "⏷Album with the most songs" : "⏵Album with the most songs"}</h2>
+      <h3 onClick={() => rollMenu("mostSongs")}>{openSections.mostSongs ? "⏷Album with the most songs" : "⏵Album with the most songs"}</h3>
       <section
         style={{
           ...sectionStyle,
-          maxHeight: openSections.mostSongs ? "550px" : "0px",
+          maxHeight: openSections.mostSongs ? "4000px" : "0px",
         }}
       >
         <Music {...albumWithTheMostSongs}></Music>
@@ -319,7 +473,7 @@ function App() {
 
 
 
-    </main>
+    </div>
   );
 }
 
