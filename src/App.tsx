@@ -264,7 +264,7 @@ function Movie({ title, yearRelease, cover, rating }: IMovie) {
     recommended = true;
   }
   return (
-    <div className="card">
+    <div className="card" onClick={()=>console.log("Wybrano film:"+title)}>
       <img
         className="card-img-top"
         src={cover}
@@ -278,6 +278,12 @@ function Movie({ title, yearRelease, cover, rating }: IMovie) {
       <div className="card-body">
         <h4 className="card-title">{title}</h4>
         <p className="card-text">Year: {yearRelease}</p>
+        <button onClick={(event)=>{
+          event.stopPropagation()
+          console.log("Pokaż szczegóły dla"+title)
+        }
+        }
+          >Pokaż szczegóły</button>
         <p className="card-text">Rating: {rating}</p>
         {recommended ? <label>Polecany</label> : null}
       </div>
@@ -312,7 +318,12 @@ function Book({ title, yearRelease, cover, pages }: IBook) {
   );
 }
 
+function handleSongClick(title: string, album: string){
+    console.log("Wybrano "+ title+" z albumu "+album)
+  }
+
 function Music({ title, yearRelease, cover, author, songs, genre }: IMusic) {
+  
   return (
     <div className="card">
       <img
@@ -347,7 +358,7 @@ function Music({ title, yearRelease, cover, author, songs, genre }: IMusic) {
               </thead>
               <tbody>
                 {songs?.map((song, index) => (
-                  <tr>
+                  <tr onClick={()=>handleSongClick(song.songTitle, title)}>
                     <td>{index + 1}</td>
                     <td>{song.songTitle}</td>
                     <td className="text-end">{song.duration}</td>
@@ -384,6 +395,8 @@ function App() {
     width: "100%",
   };
 
+
+  
   function rollMenu(section: keyof typeof openSections) {
     setOpenSections(prev => ({
       ...prev,
@@ -400,7 +413,7 @@ function App() {
         fontFamily: "system-ui, sans-serif",
         color: "grey",
         gap: "15px",
-        alignItems: "center"
+        alignItems: "center",
       }}
     >
 
