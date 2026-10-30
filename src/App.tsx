@@ -259,12 +259,14 @@ for (let album of albums) {
 
 
 function Movie({ title, yearRelease, cover, rating }: IMovie) {
+  
   var recommended = false;
   if (rating >= 8) {
     recommended = true;
   }
   return (
     <div className="card" onClick={()=>console.log("Wybrano film:"+title)}>
+    
       <img
         className="card-img-top"
         src={cover}
@@ -291,13 +293,19 @@ function Movie({ title, yearRelease, cover, rating }: IMovie) {
   );
 }
 
+
+
 function Book({ title, yearRelease, cover, pages }: IBook) {
   var classic = false;
   if (yearRelease < 2000) {
     classic = true;
   }
+  
+
   return (
-    <div className="card">
+    <div className="card"> 
+    
+
       <img
         className="card-img-top"
         src={cover}
@@ -322,10 +330,17 @@ function handleSongClick(title: string, album: string){
     console.log("Wybrano "+ title+" z albumu "+album)
   }
 
-function Music({ title, yearRelease, cover, author, songs, genre }: IMusic) {
+
+
   
+function Music({ title, yearRelease, cover, author, songs, genre }: IMusic) {
+
+
+   
+
   return (
     <div className="card">
+      
       <img
         className="card-img-top"
         src={cover}
@@ -375,6 +390,22 @@ function Music({ title, yearRelease, cover, author, songs, genre }: IMusic) {
 
 function App() {
 
+  const[songSearch, setSongSearch] = useState("");
+  const[bookSearch, setBookSearch] = useState(""); 
+  const[movieSearch, setMovieSearch] = useState("");
+  
+  const filteredMovies = movies.filter((m) =>
+  m.title.toLowerCase().includes(movieSearch.toLowerCase())
+);
+
+const filteredBooks = books.filter((b) =>
+  b.title.toLowerCase().includes(bookSearch.toLowerCase())
+);
+
+const filteredAlbums = albums.filter(album =>
+  album.title.toLowerCase().includes(songSearch.toLowerCase())
+);
+  
 
   const [openSections, setOpenSections] = useState({
     movies: true,
@@ -384,6 +415,9 @@ function App() {
     music: true,
     mostSongs: true,
   });
+
+  
+
 
   const sectionStyle: CSSProperties = {
     display: "flex",
@@ -423,8 +457,17 @@ function App() {
           ...sectionStyle,
           maxHeight: openSections.movies ? "3000px" : "0px",
         }}
-      >
-        {movies.map(m => <Movie {...m} />)}
+      > <input
+        type="text"
+        id="movie-search"
+        className="form-control"
+        placeholder="Wpisz tytuł filmu"
+        value={movieSearch}
+        onChange={(e) => {setMovieSearch(e.target.value); console.log(e.target.value);}}
+      />
+        {filteredMovies.map(m => (
+  <Movie {...m} />
+))}
       </section>
 
 
@@ -445,10 +488,17 @@ function App() {
           ...sectionStyle,
           maxHeight: openSections.books ? "3000px" : "0px",
         }}
-      >
-        {books.map(b => (
-          <Book key={b.title} {...b} />
-        ))}
+      > <input
+        type="text"
+        id="book-search"
+        className="form-control"
+        placeholder="Wpisz tytuł książki"
+        value={bookSearch}
+        onChange={(e) => {setBookSearch(e.target.value); console.log(e.target.value);}}
+      />
+        {filteredBooks.map(b => (
+  <Book {...b} />
+))}
       </section>
 
       <h3 onClick={() => rollMenu("booksDateSorted")}>{openSections.booksDateSorted ? "⏷Books sorted by date" : "⏵Books sorted by date"}</h3>
@@ -469,7 +519,17 @@ function App() {
           maxHeight: openSections.music ? "4000px" : "0px",
         }}
       >
-        {albums.map((a) => <Music {...a}></Music>)}
+        <input
+      type="text"
+      id="song-search"
+      className="form-control"
+      placeholder="Wpisz tytuł piosenki"
+      value={songSearch}
+      onChange={(e) => {setSongSearch(e.target.value); console.log(e.target.value);}}
+    />
+        {filteredAlbums.map((a) => (
+  <Music {...a} />
+))}
       </section>
 
 
@@ -480,7 +540,7 @@ function App() {
           ...sectionStyle,
           maxHeight: openSections.mostSongs ? "4000px" : "0px",
         }}
-      >
+      >  
         <Music {...albumWithTheMostSongs}></Music>
       </section>
 
