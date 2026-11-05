@@ -8,14 +8,11 @@ interface Task {
 }
 
 
-function Task({ description, isDone }: Task) {
-  function checkingTask(done: boolean) {
-    done=!done;
-  }
+function Task({ task, onToggle }: { task: Task; onToggle: () => void; }) {
   return (
     <section>
-      <p>{description}</p>
-      {isDone ? <input type="checkbox" checked onClick={() => checkingTask(isDone)} /> : <input type="checkbox" onClick={() => checkingTask(isDone)} />}
+      <p>{task.description}</p>
+      <input type="checkbox" checked={task.isDone} onChange={onToggle} />
     </section>
   );
 }
@@ -26,6 +23,7 @@ function App() {
 
   const [tasks, setTasks] = useState<Task[]>([]);
   const [SingleTask, setTask] = useState<String>("");
+  const undoneCount = tasks.filter(t => !t.isDone).length;
 
   function addTask() {
     var trimDes = SingleTask.trim();
@@ -40,6 +38,11 @@ function App() {
   }
 
 
+  function toggleTask(index: number) {
+    setTasks(
+      tasks.map((t, i) => (i === index ? { ...t, isDone: !t.isDone } : t))
+    );
+  }
 
 
   return (
@@ -52,8 +55,12 @@ function App() {
       </section>
       <section>
         <ul>
-          {tasks.map(t=> <Task {...t}/>)}
+          {tasks.map((t, i) => (
+            <Task task={t} onToggle={() => toggleTask(i)} />
+          ))}
         </ul>
+        <p>Number of undone tasks: </p>
+        <p>{undoneCount}</p>
       </section>
 
     </main>
